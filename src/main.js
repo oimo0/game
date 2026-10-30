@@ -1,7 +1,7 @@
-import {games} from './games.js?v=science-2';
-import {GameRuntime} from './runtime.js?v=science-2';
-import {artwork} from './art.js?v=science-2';
-import {controlsFor,TouchControls} from './controls.js?v=science-2';
+import {games} from './games.js?v=science-3';
+import {GameRuntime} from './runtime.js?v=science-3';
+import {artwork} from './art.js?v=science-3';
+import {controlsFor,TouchControls} from './controls.js?v=science-3';
 const $=s=>document.querySelector(s),grid=$('#gameGrid'),modal=$('#gameModal'),stage=$('#gameStage');
 const fmt=n=>Math.max(0,Math.floor(Number(n)||0)).toLocaleString();
 const best=id=>{try{return Number(localStorage.getItem(`neon-v3-best-${id}`)||0)}catch{return 0}};
