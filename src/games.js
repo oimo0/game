@@ -1,0 +1,60 @@
+const raw = [
+// The Rift — dodge
+['rift-runner','Rift Runner','dodge','Survive the rift','Slip through a collapsing neon corridor.','✦','#65e6ec',1],
+['laser-garden','Laser Garden','dodge','Outrun the light','Read the beams and thread the safe gaps.','⌁','#ff72bb',1],
+['orbital-drift','Orbital Drift','dodge','Dodge the debris','A quiet orbit is about to get very loud.','◉','#a78bfa',2],
+['meteor-mixer','Meteor Mixer','dodge','Keep the ship intact','The meteor shower has a rhythm. Find it.','☄','#ff9d63',2],
+['prism-panic','Prism Panic','dodge','Avoid the prisms','A shifting field of sharp, shiny trouble.','◇','#f3dc70',2],
+['ghost-train','Ghost Train','dodge','Stay on the tracks','Spectral traffic is coming in hot.','▱','#91a6ff',2],
+['bubble-breakout','Bubble Breakout','dodge','Don’t get boxed in','Float through the gaps before they close.','○','#78d8ff',1],
+['neon-ninja','Neon Ninja','dodge','Survive the shuriken storm','Quick feet. Clean dodges. No second chances.','✧','#ff6c92',3],
+['glitch-zone','Glitch Zone','dodge','Escape the corrupted grid','The arena keeps changing under your feet.','▦','#be8bff',3],
+['thunder-dash','Thunder Dash','dodge','Ride out the storm','Lightning has terrible aim. Usually.','ϟ','#ffe072',2],
+// treasure / collect
+['crystal-cove','Crystal Cove','collect','Gather 12 crystals','A calm little cove with a sparkling secret.','✧','#7be6d7',1],
+['moon-miner','Moon Miner','collect','Mine the moon gems','Low gravity, high value. Bring it home.','☾','#af9dff',1],
+['star-catcher','Star Catcher','collect','Catch falling stars','The night sky is raining good luck.','★','#ffd86e',1],
+['deep-sea-dive','Deep Sea Dive','collect','Collect 10 pearls','Follow the glow into the blue.','◌','#62c8ed',2],
+['forest-spark','Forest Spark','collect','Find the forest lights','Tiny lanterns are hiding between the trees.','♧','#9edc78',1],
+['candy-circuit','Candy Circuit','collect','Grab the sugar sparks','Sweet, speedy, and slightly chaotic.','✿','#ff8db8',1],
+['comet-chaser','Comet Chaser','collect','Catch 8 comets','They won’t wait around for a selfie.','☄','#87baff',2],
+['sunken-treasure','Sunken Treasure','collect','Find the lost coins','An old map. A brand new dive.','◈','#e7bd70',2],
+['pocket-galaxy','Pocket Galaxy','collect','Collect cosmic dust','Build a tiny universe, one star at a time.','✴','#cc9bff',2],
+['rooftop-rush','Rooftop Rush','collect','Snag the city tokens','A glowing skyline and a pocket full of points.','⌂','#ff9f75',2],
+// aim / reflex
+['target-zero','Target Zero','aim','Tag 15 drones','Every shot counts. Make them count.','⊙','#ff747e',1],
+['pop-the-planet','Pop the Planet','aim','Pop 18 bubbles','A strangely satisfying space cleanup.','◉','#7ce4e8',1],
+['pixel-slinger','Pixel Slinger','aim','Hit 14 pixel bots','A tiny duel in a very big arcade.','▣','#a88dff',2],
+['bullseye-blitz','Bullseye Blitz','aim','Land 12 bullseyes','Steady hands make bright scores.','◎','#ffb365',1],
+[' UFO-foe','UFO Foe','aim','Zap 16 invaders','The visitors are friendly. The points are not.','⌖','#81d9fa',2],
+['fruit-frenzy','Fruit Frenzy','aim','Slice 20 fruit orbs','The fruit bowl has gone interstellar.','✹','#ff819b',2],
+['signal-sniper','Signal Sniper','aim','Lock 10 signals','Find the pulse. Tap at just the right time.','⌁','#bb95ff',3],
+['meteor-marksman','Meteor Marksman','aim','Break 14 meteors','Cool head, hot lasers.','☄','#ffe07a',2],
+['ghost-pop','Ghost Pop','aim','Tag 16 ghosts','They’re more startled than scary.','♧','#b0e7b0',1],
+['color-clash','Color Clash','aim','Hit 15 color cores','Match the moment. Make a vivid mark.','✺','#ff87d5',3],
+// runner
+['skyline-sprint','Skyline Sprint','runner','Reach 1,200 m','The rooftops are yours. Keep moving.','↗','#70cfff',2],
+['lava-lanes','Lava Lanes','runner','Cross the lava field','Pick a lane before the ground gets hot.','♨','#ff906c',2],
+['subway-surfer','Subway Surfer','runner','Ride 1,000 m','The last train is leaving. Make your move.','▤','#ffe46f',1],
+['jungle-jolt','Jungle Jolt','runner','Run 1,100 m','Vines, ruins, and one very fast explorer.','♧','#9de17d',2],
+['ice-slide','Ice Slide','runner','Glide 1,250 m','The slippery part is also the fun part.','❄','#a3ddff',2],
+['rocket-raccoon','Rocket Raccoon','runner','Travel 1,300 m','A jetpack, a raccoon, and no flight plan.','✦','#c19aff',3],
+['canyon-charger','Canyon Charger','runner','Ride 1,100 m','Dust trails and daring lane changes.','◢','#ffa26e',2],
+['cloud-hopper','Cloud Hopper','runner','Reach 1,150 m','The sky has a surprising number of platforms.','☁','#81f0e3',2],
+['cyber-cycle','Cyber Cycle','runner','Ride 1,400 m','A midnight ride through the future.','⌁','#ff78c7',2],
+['dragon-delivery','Dragon Delivery','runner','Reach 1,300 m','Fast wings. Fragile cargo. Big energy.','♜','#ffad6e',3],
+// puzzle
+['memory-matrix','Memory Matrix','puzzle','Repeat the sequence','The grid remembers. Can you?','▦','#74e5e0',1],
+['echo-chamber','Echo Chamber','puzzle','Repeat the echo','Listen closely and follow the lights.','◉','#a88aff',1],
+['color-code','Color Code','puzzle','Crack the color code','A secret pattern is waiting to be found.','▥','#ff8abc',2],
+['orbit-order','Orbit Order','puzzle','Restore the orbit','Put the planets back in their proper rhythm.','◎','#78baff',2],
+['beat-the-bot','Beat the Bot','puzzle','Match the pattern','One step ahead is all you need.','⌘','#e9d577',2],
+['signal-stack','Signal Stack','puzzle','Repeat the signal','Four colors. One growing sequence.','▣','#79d6ff',1],
+['prism-pairs','Prism Pairs','puzzle','Remember each flash','A quick visual memory workout.','◇','#c99bff',2],
+['tiny-tangram','Tiny Tangram','puzzle','Solve the sequence','Rotate the pieces in your mind, then tap.','◈','#a9e18a',3],
+['switchboard','Switchboard','puzzle','Replay the switchboard','Follow the current through the circuit.','⌁','#ff9b73',2],
+['lunar-logic','Lunar Logic','puzzle','Repeat the moon phases','A gentle puzzle with a sneaky memory test.','☾','#b2a3ff',2]
+];
+const descriptions = raw.map((r,i)=>({id:r[0].trim().replace(/\s+/g,'-').toLowerCase(),name:r[1],family:r[2],objective:r[3],description:r[4],icon:r[5],color:r[6],difficulty:r[7],number:i+1,category:r[2]==='aim'?'REFLEX':r[2]==='puzzle'?'PUZZLE':'3D WORLD',duration:r[2]==='puzzle'?0:45+((i%3)*5),speed:0.8+(i%5)*0.12,seed:i+17}));
+export const games=descriptions;
+export const getGame=(id)=>games.find(g=>g.id===id);
