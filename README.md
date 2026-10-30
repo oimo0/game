@@ -1,68 +1,82 @@
 # NEON ARCADE
 
-A browser arcade with 50 playable mini-games, including 30 3D worlds, 10 reflex cabinets, and 10 memory puzzles. The interface is responsive and stores high scores in the browser that played them.
+A responsive browser arcade with 50 playable cabinets across six genres and 30 game modes. The collection includes a real 3D kart racer, platform challenges, lane runners, space combat, survival arenas, sports, logic puzzles, and rhythm games. Each cabinet has its own objective, controls, and course or board variation.
 
-## Play
+## Run locally
 
-Serve the repository over HTTP with `python3 -m http.server 8000`, then open `http://localhost:8000`. You can also enable GitHub Pages for this repository using the `main` branch and `/ (root)`. The Three.js module is loaded from jsDelivr, so play needs an internet connection.
+Requires a modern browser and internet access for the Three.js module from jsDelivr.
 
-- **Dodge, collect, runner:** WASD or arrow keys. Press Space to jump in runner games.
-- **Reflex:** Aim with the pointer and click targets.
-- **Puzzle:** Watch the sequence, then tap the colored pads in the same order.
-- **Mobile:** Use the on-screen direction pad and action button.
-- Press **Esc** to pause. High scores are saved locally in the browser.
+```sh
+python3 -m http.server 8000
+```
 
-## Game list
+Open http://localhost:8000 while the server is running.
 
-| # | Cabinet | Style |
+## Controls
+
+- **Kart racing:** WASD or arrow keys to steer and accelerate; Space to boost.
+- **Platform games:** A/D or left/right to move; Space to jump. Gravity Garden uses G to flip gravity.
+- **Lane runs:** left/right to switch lanes; Space to jump.
+- **Shooters:** WASD or arrows to move; hold Space to fire.
+- **Survival:** WASD or arrows to move; Space to dash.
+- **Puzzles and sports:** Use the cabinet board and click/tap instructions.
+- **Rhythm:** A/S/D/F or arrow keys, or tap the lanes.
+- **Mobile:** On-screen controls appear for movement games; tap the board for other cabinets.
+- **Esc:** Pause. Best scores stay in local storage on the current browser.
+
+For GitHub Pages, open **Settings → Pages**, select the `main` branch and `/(root)`, then save.
+
+## Cabinets
+
+| # | Game | Arcade |
 |---:|---|---|
-| 01 | Rift Runner | 3D WORLD |
-| 02 | Laser Garden | 3D WORLD |
-| 03 | Orbital Drift | 3D WORLD |
-| 04 | Meteor Mixer | 3D WORLD |
-| 05 | Prism Panic | 3D WORLD |
-| 06 | Ghost Train | 3D WORLD |
-| 07 | Bubble Breakout | 3D WORLD |
-| 08 | Neon Ninja | 3D WORLD |
-| 09 | Glitch Zone | 3D WORLD |
-| 10 | Thunder Dash | 3D WORLD |
-| 11 | Crystal Cove | 3D WORLD |
-| 12 | Moon Miner | 3D WORLD |
-| 13 | Star Catcher | 3D WORLD |
-| 14 | Deep Sea Dive | 3D WORLD |
-| 15 | Forest Spark | 3D WORLD |
-| 16 | Candy Circuit | 3D WORLD |
-| 17 | Comet Chaser | 3D WORLD |
-| 18 | Sunken Treasure | 3D WORLD |
-| 19 | Pocket Galaxy | 3D WORLD |
-| 20 | Rooftop Rush | 3D WORLD |
-| 21 | Target Zero | REFLEX |
-| 22 | Pop the Planet | REFLEX |
-| 23 | Pixel Slinger | REFLEX |
-| 24 | Bullseye Blitz | REFLEX |
-| 25 | UFO Foe | REFLEX |
-| 26 | Fruit Frenzy | REFLEX |
-| 27 | Signal Sniper | REFLEX |
-| 28 | Meteor Marksman | REFLEX |
-| 29 | Ghost Pop | REFLEX |
-| 30 | Color Clash | REFLEX |
-| 31 | Skyline Sprint | 3D WORLD |
-| 32 | Lava Lanes | 3D WORLD |
-| 33 | Subway Surfer | 3D WORLD |
-| 34 | Jungle Jolt | 3D WORLD |
-| 35 | Ice Slide | 3D WORLD |
-| 36 | Rocket Raccoon | 3D WORLD |
-| 37 | Canyon Charger | 3D WORLD |
-| 38 | Cloud Hopper | 3D WORLD |
-| 39 | Cyber Cycle | 3D WORLD |
-| 40 | Dragon Delivery | 3D WORLD |
-| 41 | Memory Matrix | PUZZLE |
-| 42 | Echo Chamber | PUZZLE |
-| 43 | Color Code | PUZZLE |
-| 44 | Orbit Order | PUZZLE |
-| 45 | Beat the Bot | PUZZLE |
-| 46 | Signal Stack | PUZZLE |
-| 47 | Prism Pairs | PUZZLE |
-| 48 | Tiny Tangram | PUZZLE |
-| 49 | Switchboard | PUZZLE |
-| 50 | Lunar Logic | PUZZLE |
+| 01 | Metro Grand Prix | Racing |
+| 02 | Volcano Sprint | Racing |
+| 03 | Frostbite Cup | Racing |
+| 04 | Skyway Rush | Racing |
+| 05 | Midnight Rally | Racing |
+| 06 | Coin Castle | Adventure |
+| 07 | Jungle Jump | Adventure |
+| 08 | Gravity Garden | Adventure |
+| 09 | Lava Leap | Adventure |
+| 10 | Crystal Quest | Adventure |
+| 11 | Skyline Sprint | Adventure |
+| 12 | Subway Dash | Adventure |
+| 13 | Snowboard Scramble | Adventure |
+| 14 | Rocket Raccoon | Adventure |
+| 15 | Dragon Delivery | Adventure |
+| 16 | Starship Salvage | Action |
+| 17 | Alien Breakout | Action |
+| 18 | Asteroid Miner | Action |
+| 19 | Boss Rush | Action |
+| 20 | Deep Space Defense | Action |
+| 21 | Meteor Survival | Action |
+| 22 | Shadow Arena | Action |
+| 23 | Swarm Breaker | Action |
+| 24 | Orbital Rescue | Action |
+| 25 | Last Light | Action |
+| 26 | Block Drop | Puzzle |
+| 27 | Gem Match | Puzzle |
+| 28 | Minefield Mini | Puzzle |
+| 29 | Sliding Starlight | Puzzle |
+| 30 | Connect Four | Puzzle |
+| 31 | Tower of Hanoi | Puzzle |
+| 32 | Tic-Tac-Toe | Puzzle |
+| 33 | Memory Match | Puzzle |
+| 34 | Mini Sudoku | Puzzle |
+| 35 | Five-Letter Code | Puzzle |
+| 36 | Hoops Hero | Sports |
+| 37 | Penalty Pro | Sports |
+| 38 | Pocket Golf | Sports |
+| 39 | Bowling Night | Sports |
+| 40 | Home Run Hero | Sports |
+| 41 | Mole Mayhem | Arcade |
+| 42 | Color Switch | Arcade |
+| 43 | Fruit Frenzy | Arcade |
+| 44 | Quick Draw | Arcade |
+| 45 | Stack Attack | Arcade |
+| 46 | Neon Notes | Arcade |
+| 47 | Drum Dash | Arcade |
+| 48 | Tempo Tap | Arcade |
+| 49 | Beat Drop | Arcade |
+| 50 | Echo Beat | Arcade |
