@@ -1,0 +1,8 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {COURSES,buildTrack,createCar,stepCar,aiInput} from '../src/race/simulation.js';
+for(const [name,course] of Object.entries(COURSES))test(`${name}: AI completes three legal laps`,()=>{const track=buildTrack(course),car=createCar(track);for(let n=0;n<120*240&&!car.finished;n++)stepCar(car,aiInput(car,track,course,.8),track,course,1/120);assert.equal(car.lap,3);assert.equal(car.gates,36);assert.ok(Number.isFinite(car.x)&&Number.isFinite(car.z));assert.ok(car.energy>=0&&car.energy<=100)});
+test('stationary car cannot collect checkpoints',()=>{const track=buildTrack(COURSES.metro),c=createCar(track);for(let i=0;i<600;i++)stepCar(c,{},track,COURSES.metro,1/120);assert.equal(c.gates,0);assert.equal(c.lap,0)});
+test('teleporting to finish cannot skip checkpoint order',()=>{const track=buildTrack(COURSES.metro),c=createCar(track);c.x=track[359].x;c.z=track[359].z;stepCar(c,{},track,COURSES.metro,1/120);assert.equal(c.lap,0);assert.equal(c.gates,0)});
+test('boost consumes finite energy and release recovers it',()=>{const track=buildTrack(COURSES.metro),c=createCar(track);c.heading=0;c.vz=20;stepCar(c,{gas:1,boost:true},track,COURSES.metro,.1);assert.ok(c.energy<100&&c.energy>=0);const energy=c.energy;stepCar(c,{gas:0,boost:false},track,COURSES.metro,.1);assert.ok(c.energy>energy&&c.energy<=100)});
+test('off-road wall returns car to a finite bounded position',()=>{const course=COURSES.sky,track=buildTrack(course),c=createCar(track);c.x=10000;c.z=10000;stepCar(c,{gas:1,steer:1},track,course,1/120);assert.ok(Number.isFinite(c.x));assert.ok(Math.hypot(c.x,c.z)<500)});
