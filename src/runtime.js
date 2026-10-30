@@ -1,10 +1,10 @@
-import {SpaceExplorer} from './space/explorer.js';
-import {CosmicGames,newTypes} from './new/games.js';
-import {ArcadeEngine} from './engine.js?v=cosmos-1';
-import {SoftwareRace} from './race/software.js?v=cosmos-1';
+import {SpaceExplorer} from './space/explorer.js?v=cosmos-2';
+import {CosmicGames,newTypes} from './new/games.js?v=cosmos-2';
+import {ArcadeEngine} from './engine.js?v=cosmos-2';
+import {SoftwareRace} from './race/software.js?v=cosmos-2';
 export async function loadWithTimeout(loader,ms=8000){let timer;try{return await Promise.race([Promise.resolve().then(loader),new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('3D module load timeout')),ms)})])}finally{clearTimeout(timer)}}
 export class GameRuntime{
- constructor(gl,canvas,callbacks,{loadRace=()=>import('./race/racing.js?v=cosmos-1'),timeoutMs=8000}={}){this.gl=gl;this.canvas=canvas;this.cb=callbacks;this.loadRace=loadRace;this.timeoutMs=timeoutMs;this.active=null;this.kind=null;this.rendererMode=null;this._sound=true}
+ constructor(gl,canvas,callbacks,{loadRace=()=>import('./race/racing.js?v=cosmos-2'),timeoutMs=8000}={}){this.gl=gl;this.canvas=canvas;this.cb=callbacks;this.loadRace=loadRace;this.timeoutMs=timeoutMs;this.active=null;this.kind=null;this.rendererMode=null;this._sound=true}
  create(Engine){this.active?.dispose();this.active=null;this.gl=this.replace(this.gl);this.canvas=this.replace(this.canvas);this.canvas.style.pointerEvents='';this.active=new Engine(this.gl,this.canvas,this.cb);this.active.sound=this._sound}
  async start(game){const request=this.requestId=(this.requestId||0)+1,kind=game.type==='kart'?'racing':game.type==='space'?'space':newTypes.includes(game.type)?'cosmic':'arcade';if(this.kind!==kind){if(kind==='racing'){let Engine;try{({RacingEngine:Engine}=await loadWithTimeout(this.loadRace,this.timeoutMs))}catch(error){this.lastFallbackReason=String(error?.message||error)}if(request!==this.requestId)return false;try{if(!Engine)throw new Error(this.lastFallbackReason||'3D module unavailable');this.create(Engine);this.rendererMode='webgl'}catch(error){this.lastFallbackReason=String(error?.message||error);this.create(SoftwareRace);this.rendererMode='software'}}else if(kind==='space'){this.create(SpaceExplorer);this.rendererMode=this.active.mode}else if(kind==='cosmic'){this.create(CosmicGames);this.rendererMode='canvas'}else{this.create(ArcadeEngine);this.rendererMode='canvas'}this.kind=kind}if(request!==this.requestId)return false;this.active.sound=this._sound;try{this.active.start(game)}catch(error){if(kind!=='racing'||this.rendererMode==='software')throw error;this.lastFallbackReason=String(error?.message||error);this.create(SoftwareRace);this.rendererMode='software';this.active.start(game)}return true}
  replace(canvas){const next=canvas.cloneNode(false);canvas.replaceWith(next);return next}

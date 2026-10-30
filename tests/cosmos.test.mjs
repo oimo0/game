@@ -4,7 +4,7 @@ import {bodies,positions,satellites,cameraBasis,dot,advanceFlight} from '../src/
 import {playerInput} from '../src/race/simulation.js';
 import {landerStep,orbitStep,cometStep} from '../src/new/physics.js';
 import {SpaceExplorer} from '../src/space/explorer.js';
-import {CosmicGames} from '../src/new/games.js';
+import {CosmicGames} from '../src/new/games.js?v=cosmos-2';
 import {GameRuntime} from '../src/runtime.js';
 import {games} from '../src/games.js';
 import {artwork} from '../src/art.js';
@@ -24,3 +24,6 @@ test('space starts without WebGL and supports scan, all warps, tour, flight, tra
 for(const type of ['lander','orbit','slingshot','constellation'])test(`${type}: runtime routes to new game engine; renders, pauses and restarts`,async()=>{const runtime=new GameRuntime(canvas(),canvas(),{}),g=games.find(g=>g.type===type);assert.equal(await runtime.start(g),true);assert.ok(runtime.active instanceof CosmicGames);for(let i=0;i<120;i++)runtime.active.update(1/60);runtime.active.render();runtime.pause();assert.equal(runtime.running,false);await runtime.start(g);assert.equal(runtime.active.round,1);assert.equal(runtime.active.score,0);runtime.dispose()});
 test('constellation rejects wrong order and advances through 3 different patterns',()=>{const e=new CosmicGames(canvas(),canvas(),{});e.start(games.find(g=>g.type==='constellation'));e.connect(e.state.nodes[2]);assert.equal(e.state.next,0);assert.equal(e.state.mistakes,1);for(let round=1;round<=3;round++){for(const n of [...e.state.nodes])e.connect(n);assert.equal(e.success,true);e.update(2.1)}assert.equal(e.done,true);assert.ok(e.score>0);e.dispose()});
 test('all catalog thumbnails are valid SVG data URLs',()=>{for(const g of games){const svg=decodeURIComponent(artwork(g).split(',').slice(1).join(','));assert.ok(svg.startsWith('<svg'));assert.ok(!svg.includes('undefined'),g.id)}});
+
+test('initial orbital challenge is solvable with a brief thrust, without holding acceleration',()=>{for(const round of [1,2,3]){const s={x:450,y:120,vx:Math.sqrt(210000/180),vy:0,fuel:100,stable:0,target:210+(round-1)*18};for(let i=0;i<24000&&!s.result;i++)orbitStep(s,{thrust:i*.005<(.06+(round-1)*.02)},.005);assert.equal(s.result,'orbit',`stage ${round}`)}});
+test('orbital center impact does not produce nonfinite values',()=>{const s={x:450,y:300,vx:0,vy:0,fuel:100,stable:0};orbitStep(s,{},.1);assert.equal(s.result,'crash');assert.ok([s.x,s.y,s.vx,s.vy].every(Number.isFinite))});

@@ -1,5 +1,5 @@
 import * as T from 'three';
-import {COURSES,buildTrack,createCar,stepCar,aiInput,nearest,playerInput} from './simulation.js?v=cosmos-1';
+import {COURSES,buildTrack,createCar,stepCar,aiInput,nearest,playerInput} from './simulation.js?v=cosmos-2';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export class RacingEngine{
  constructor(gl,map,cb){this.canvas=gl;this.map=map;this.cb=cb;this.keys=new Set();this.running=false;this.done=false;this.sound=true;this.ctx=map.getContext('2d');this.renderer=new T.WebGLRenderer({canvas:gl,antialias:true});this.renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=T.PCFSoftShadowMap;this.renderer.toneMapping=T.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.2;this.camera=new T.PerspectiveCamera(58,1,.1,600);this.onDown=e=>{if(!this.running||e.repeat||e.target?.isContentEditable||['INPUT','TEXTAREA','SELECT'].includes(e.target?.tagName))return;const k=e.key.toLowerCase();if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(k))e.preventDefault();this.pressKey(k)};this.onUp=e=>this.releaseKey(e.key.toLowerCase());window.addEventListener('keydown',this.onDown);window.addEventListener('keyup',this.onUp);this.resize=new ResizeObserver(()=>this.size());this.resize.observe(gl.parentElement);this.last=performance.now();this.loop()}

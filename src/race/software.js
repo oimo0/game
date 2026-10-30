@@ -1,4 +1,4 @@
-import {COURSES,buildTrack,createCar,stepCar,aiInput,playerInput} from './simulation.js?v=cosmos-1';
+import {COURSES,buildTrack,createCar,stepCar,aiInput,playerInput} from './simulation.js?v=cosmos-2';
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 // A CPU perspective renderer. Shares race rules and physics with the WebGL version.
 export class SoftwareRace{
