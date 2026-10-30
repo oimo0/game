@@ -1,0 +1,58 @@
+{
+  "mercury": {
+    "source": "https://astrogeology.usgs.gov/search/map/mercury_messenger_mdis_basemap_md3_color_global_mosaic_665m",
+    "image": "https://planetarydata.jpl.nasa.gov/img/data/test/messenger/MDIS_MAPS/EXTRAS/BROWSE/Mercury_MESSENGER_MDIS_Basemap_MD3Color_Mosaic_Global_665m.jpg",
+    "description": "MESSENGER MDIS MD3 color global mosaic; resized, longitude origin shifted 180 degrees for centered-0 map",
+    "file": "mercury.jpg",
+    "sha256": "f13dad0e2deaadec17868e88b9e7cbeb429b76339f64154965c4380f145e588f"
+  },
+  "mars": {
+    "source": "https://maps.jpl.nasa.gov/tmaps/mars.html",
+    "image": "https://maps.jpl.nasa.gov/tmaps/pix/mar0kuu2.jpg",
+    "description": "NASA/JPL visualization map; gas giant patterns representative, not current weather",
+    "file": "mars.jpg",
+    "sha256": "e68dab8fe9f3ddd84860dc13408c93677ce8f12fdf1a80a9df565a4653df8062"
+  },
+  "jupiter": {
+    "source": "https://maps.jpl.nasa.gov/tmaps/jupiter.html",
+    "image": "https://maps.jpl.nasa.gov/tmaps/pix/jup0vss1.jpg",
+    "description": "NASA/JPL visualization map; gas giant patterns representative, not current weather",
+    "file": "jupiter.jpg",
+    "sha256": "7337bc265cd2c27bf389383d113d6f176a85924ff00c1a21d08a8ec794665895"
+  },
+  "saturn": {
+    "source": "https://maps.jpl.nasa.gov/tmaps/saturn.html",
+    "image": "https://maps.jpl.nasa.gov/tmaps/pix/sat0fds1.jpg",
+    "description": "NASA/JPL visualization map; gas giant patterns representative, not current weather",
+    "file": "saturn.jpg",
+    "sha256": "b2d3af9ec75c5c4928d93db982b3bdc537548f5acf1dd435dfde3c2c1eba8c7f"
+  },
+  "uranus": {
+    "source": "https://maps.jpl.nasa.gov/tmaps/uranus.html",
+    "image": "https://maps.jpl.nasa.gov/tmaps/pix/ura0fss1.jpg",
+    "description": "NASA/JPL visualization map; gas giant patterns representative, not current weather",
+    "file": "uranus.jpg",
+    "sha256": "200349fdde60d7f19d61cc0cfdd0ed2243a01deca2b0980801aeeb585b7a75b9"
+  },
+  "neptune": {
+    "source": "https://maps.jpl.nasa.gov/tmaps/neptune.html",
+    "image": "https://maps.jpl.nasa.gov/tmaps/pix/nep0fds1.jpg",
+    "description": "NASA/JPL visualization map; gas giant patterns representative, not current weather",
+    "file": "neptune.jpg",
+    "sha256": "c7780f27c5a84fd6ebb43750855d4dfd9e04957f9dafdaf58e69af75c21d237f"
+  },
+  "earth": {
+    "source": "https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-map/",
+    "image": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/january/world.200401.3x5400x2700.jpg",
+    "description": "NASA Blue Marble, January 2004 composite; resized, not current weather",
+    "file": "earth.jpg",
+    "sha256": "9cd12f66ea5f78ccba48be01f275d52ec7fcecf26e3187c518df8de5408f325d"
+  },
+  "moon": {
+    "source": "https://svs.gsfc.nasa.gov/4720",
+    "image": "https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_2k.jpg",
+    "description": "2025 LROC color map, NASA SVS / Ernie Wright / LRO-LROC; resized/recompressed",
+    "file": "moon.jpg",
+    "sha256": "4f751f4af594a75021e63cc503bc334e3a71d680fe7d8679ae268b1c2f703679"
+  }
+}

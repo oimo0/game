@@ -63,7 +63,7 @@ export const games=raw.map((r,i)=>({id:r[0],name:r[1],genre:r[2],type:r[3],objec
 export const getGame=id=>games.find(g=>g.id===id);
 
 const additions=[
- ['deep-field','Deep Field · 宇宙探索','Explore','space','惑星へワープ、衛星を追跡。時間制限のない3D宇宙の旅。','🪐','#93dbed',0,'cosmos'],
+ ['deep-field','Deep Field · 宇宙探索','Explore','space','JPL DE440で実寸の太陽系へ。NASA画像と実データの衛星軌道。','🪐','#93dbed',0,'cosmos'],
  ['lunar-descent','Lunar Descent','Adventure','lander','推力と傾きを調節し、燃料が切れる前に月面へ軟着陸。','☾','#c5c9f2',180,'moon'],
  ['orbital-engineer','Orbital Engineer','Puzzle','orbit','加速と減速で目標の軌道に入り、8秒間維持しよう。','◎','#7ce4c7',180,'orbit'],
  ['gravity-slingshot','Gravity Slingshot','Action','slingshot','彗星を引っぱって発射。惑星の引力を利用してポータルへ。','☄','#e6ba82',180,'comet'],

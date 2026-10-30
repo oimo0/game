@@ -1,0 +1,13 @@
+{
+  "reference": "Original NASA/JPL DE440s evaluated by NAIF CSPICE; no aberration correction; ICRF km/TDB",
+  "interval": "2025-01-01TDB <= date < 2031-01-01TDB",
+  "stateCases": 2010,
+  "orientationCases": 40,
+  "horizonsEarthCases": 2,
+  "maxPositionKm": 0.000003514538454690244,
+  "maxPositionMillimeters": 3.514538454690244,
+  "maxVelocityKmPerSec": 3.738974600141894e-12,
+  "maxPckAxisVectorError": 2.8546466600677826e-11,
+  "maxHorizonsEarthKm": 0.00003007941031416263,
+  "interpretation": "Numerical agreement with source ephemeris, NOT uncertainty of real celestial positions, rendered pixels, body-center offsets, or satellite orbits."
+}

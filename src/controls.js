@@ -1,7 +1,7 @@
 const key=(label,key,hold=false)=>({label,key,hold});
 const tap=(hint)=>({layout:'board',hint,buttons:[]});
 const profiles={
- space:{layout:'space',stick:true,hint:'ドラッグで視点、ピンチでズーム。左スティックは周回・前後移動。自由飛行に切替もできるよ。PC: WASD、Q/Eで惑星、Space観測、F飛行。',buttons:[{label:'スキャン',command:'scan'},{label:'衛星追跡',command:'satellites'},{label:'時間 ×1',command:'time'},{label:'拡大 ＋',command:'zoom-in'},{label:'縮小 −',command:'zoom-out'},{label:'自由飛行',command:'flight',toggle:true,onLabel:'周回に戻る',offLabel:'自由飛行'},{label:'ツアー',command:'tour',toggle:true,onLabel:'ツアー停止',offLabel:'自動ツアー'}]},
+ space:{layout:'space',stick:true,hint:'左スティックで周回・距離、ドラッグで視点、ピンチでズーム。時刻・精度から日時・衛星を選択。PC: WASD、Q/E、F飛行、Space観測。',buttons:[{label:'スキャン',command:'scan'},{label:'衛星追跡',command:'satellites'},{label:'時間 ×1',command:'time'},{label:'拡大 ＋',command:'zoom-in'},{label:'縮小 −',command:'zoom-out'},{label:'自由飛行',command:'flight',toggle:true,onLabel:'周回に戻る',offLabel:'自由飛行'},{label:'ツアー',command:'tour',toggle:true,onLabel:'ツアー停止',offLabel:'自動ツアー'}]},
  lander:{layout:'lander',stick:true,hint:'左スティックで機体を傾け、噴射を長押し。ゆっくり、まっすぐ着地しよう。PC: A/Dで傾き、Spaceで噴射。',buttons:[key('噴射',' ',true),{label:'やり直す',command:'retry'}]},
  orbit:{layout:'orbit',hint:'加速・減速を長押しして、緑の目標軌道を8秒間維持。燃料を使いすぎないで。PC: ↑加速、↓減速。',buttons:[key('加速','arrowup',true),key('減速','arrowdown',true),{label:'やり直す',command:'retry'}]},
  slingshot:{layout:'tools',hint:'画面をドラッグして引っぱり、離して彗星を発射。矢印の方向へ飛ぶよ。やり直す / Rで再挑戦。',buttons:[{label:'やり直す',command:'retry'}]},

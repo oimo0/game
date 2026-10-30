@@ -1,19 +1,13 @@
+import {heliocentricState,utcToTdb} from './ephemeris.js?v=science-1';
+import {orientationData} from './data/orientation.js?v=science-1';
+export const EARTH_KM=6378.1366,AU_KM=149597870.7;
 export const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-export const bodies=[
- {name:'太陽',en:'SUN',r:6,d:0,speed:0,phase:0,color:'#ffd27c',kind:0,info:'星々を照らす光の中心。表面の揺らぎも観察してみよう。'},
- {name:'水星',en:'MERCURY',r:.75,d:20,speed:.19,phase:2,color:'#b6a89c',kind:1,info:'クレーターのある小さな岩石の世界。'},
- {name:'金星',en:'VENUS',r:1.8,d:32,speed:.14,phase:4,color:'#e8bd85',kind:2,info:'厚い雲に包まれた、淡い金色の惑星。'},
- {name:'地球',en:'EARTH',r:2.3,d:48,speed:.1,phase:.4,color:'#4ca9ff',kind:3,info:'青い海と雲、その周りを巡る衛星の光を探そう。'},
- {name:'火星',en:'MARS',r:1.2,d:66,speed:.08,phase:2.3,color:'#d87a54',kind:4,info:'赤茶色の大地と明るい極を眺めよう。'},
- {name:'木星',en:'JUPITER',r:4.7,d:95,speed:.045,phase:4.7,color:'#d9b48c',kind:5,info:'流れるような縞模様を持つ、大きなガスの世界。'},
- {name:'土星',en:'SATURN',r:4,d:128,speed:.033,phase:1.4,color:'#e8d6a6',kind:6,info:'氷の粒をイメージした幾重もの環を、角度を変えて観察。'},
- {name:'天王星',en:'URANUS',r:2.6,d:158,speed:.023,phase:3.1,color:'#8fe0e0',kind:7,info:'静かな青緑色の惑星。'},
- {name:'海王星',en:'NEPTUNE',r:2.5,d:188,speed:.018,phase:5.4,color:'#587dec',kind:8,info:'遠くに浮かぶ深い青色の惑星。'},
- {name:'月',en:'MOON',r:.64,d:0,speed:0,phase:0,color:'#bbc1cc',kind:1,info:'地球を巡る月。近づいてクレーターを見てみよう。'}
-];
-export function positions(time){const p=bodies.map(b=>[Math.cos(time*b.speed+b.phase)*b.d,0,Math.sin(time*b.speed+b.phase)*b.d]);p[9]=[p[3][0]+Math.cos(time*.5)*6,.5,p[3][2]+Math.sin(time*.5)*6];return p}
-// Illustrative constellation, not live SpaceX ephemerides. 6 planes × 12 spacecraft.
-export function satellites(time,earth){const list=[];for(let plane=0;plane<6;plane++)for(let i=0;i<12;i++){const a=i*Math.PI/6+time*.38+plane*.13,node=plane*Math.PI/6,inc=.925,r=2.82,x=Math.cos(a)*r,z=Math.sin(a)*Math.cos(inc)*r,y=Math.sin(a)*Math.sin(inc)*r;list.push([earth[0]+x*Math.cos(node)-z*Math.sin(node),y,earth[2]+x*Math.sin(node)+z*Math.cos(node)])}return list}
 export const add=(a,b)=>a.map((v,i)=>v+b[i]);export const sub=(a,b)=>a.map((v,i)=>v-b[i]);export const mul=(a,s)=>a.map(v=>v*s);export const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);export const unit=a=>mul(a,1/(Math.hypot(...a)||1));export const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const names=[['太陽','SUN',10,'#ffd27c'],['水星','MERCURY',199,'#b6a89c'],['金星','VENUS',299,'#e8bd85'],['地球','EARTH',399,'#4ca9ff'],['火星','MARS',499,'#d87a54'],['木星','JUPITER',599,'#d9b48c'],['土星','SATURN',699,'#e8d6a6'],['天王星','URANUS',799,'#8fe0e0'],['海王星','NEPTUNE',899,'#587dec'],['月','MOON',301,'#bbc1cc']];
+export const bodies=names.map(([name,en,code,color],i)=>{const radii=orientationData[code].RADII;return {name,en,code,color,r:radii[0]/EARTH_KM,radiusKm:radii[0],polar:radii[2]/radii[0],info:i===3?'NASA Blue Marbleの地形。昼夜境界はシミュレーション日時の太陽方向。':i===9?'NASA LROの全球画像と標高。表面の色は撮影時の合成画像。':i>4&&i<9?'位置は惑星系重心。雲の模様は過去の画像・模式表現。':'位置はJPL DE440、半径・自転軸はNAIF PCKに基づきます。'}});
+export const icrfToWorld=p=>[p[0]/EARTH_KM,p[2]/EARTH_KM,-p[1]/EARTH_KM];
+export function positions(jd=utcToTdb(Date.now())){return bodies.map((_,i)=>icrfToWorld(heliocentricState(i,jd).position))}
+export function orientation(index,jd){const data=orientationData[bodies[index].code],d=jd-2451545,T=d/36525,poly=(a,t)=>a.reduce((sum,c,i)=>sum+c*t**i,0);let ra=poly(data.POLE_RA,T),dec=poly(data.POLE_DEC,T),w=poly(data.PM,d);const degree=index===4?3:2;for(let i=0;i<data.ANGLES.length/degree;i++){const angle=poly(data.ANGLES.slice(i*degree,(i+1)*degree),T)*Math.PI/180;ra+=(data.NUT_PREC_RA?.[i]||0)*Math.sin(angle);dec+=(data.NUT_PREC_DEC?.[i]||0)*Math.cos(angle);w+=(data.NUT_PREC_PM?.[i]||0)*Math.sin(angle)}ra*=Math.PI/180;dec*=Math.PI/180;w=(w%360)*Math.PI/180;const u=[-Math.sin(ra),Math.cos(ra),0],v=[-Math.cos(ra)*Math.sin(dec),-Math.sin(ra)*Math.sin(dec),Math.cos(dec)],z=[Math.cos(ra)*Math.cos(dec),Math.sin(ra)*Math.cos(dec),Math.sin(dec)],convert=p=>[p[0],p[2],-p[1]];return {x:convert(add(mul(u,Math.cos(w)),mul(v,Math.sin(w)))),y:convert(add(mul(u,-Math.sin(w)),mul(v,Math.cos(w)))),z:convert(z)}}
 export function cameraBasis(yaw,pitch){const forward=unit([-Math.sin(yaw)*Math.cos(pitch),-Math.sin(pitch),-Math.cos(yaw)*Math.cos(pitch)]),right=unit(cross(forward,[0,1,0]));return {forward,right,up:cross(right,forward)}}
-export function advanceFlight(state,move,dt){const basis=cameraBasis(state.yaw,state.pitch),speed=state.boost?25:7;state.free=add(state.free,mul(add(mul(basis.right,move.x),mul(basis.forward,-move.y)),speed*dt));return state.free}
+export function advanceFlight(state,move,dt){const b=cameraBasis(state.yaw,state.pitch),speed=(state.boost?4:.25)*Math.max(.01,state.distance);state.free=add(state.free,mul(add(mul(b.right,move.x),mul(b.forward,-move.y)),speed*dt));return state.free}
+export function eclipseFraction(point,sun,occluder,sunRadius,occluderRadius){const a=sub(sun,point),b=sub(occluder,point),da=Math.hypot(...a),db=Math.hypot(...b);if(db>=da||db<=occluderRadius)return 0;const r=Math.asin(clamp(sunRadius/da,0,1)),R=Math.asin(clamp(occluderRadius/db,0,1)),d=Math.acos(clamp(dot(unit(a),unit(b)),-1,1));if(d>=r+R)return 0;if(d<=Math.abs(r-R))return Math.min(1,R*R/(r*r));const x=(d*d+r*r-R*R)/(2*d*r),y=(d*d+R*R-r*r)/(2*d*R),area=r*r*Math.acos(clamp(x,-1,1))+R*R*Math.acos(clamp(y,-1,1))-.5*Math.sqrt(Math.max(0,(-d+r+R)*(d+r-R)*(d-r+R)*(d+r+R)));return clamp(area/(Math.PI*r*r),0,1)}
