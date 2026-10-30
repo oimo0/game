@@ -4,7 +4,7 @@ A browser arcade with 50 playable mini-games, including 30 3D worlds, 10 reflex 
 
 ## Play
 
-Open `index.html` in a modern browser, or enable GitHub Pages for this repository using the `main` branch and `/ (root)`. The Three.js module is loaded from jsDelivr, so the first play needs an internet connection.
+Serve the repository over HTTP with `python3 -m http.server 8000`, then open `http://localhost:8000`. You can also enable GitHub Pages for this repository using the `main` branch and `/ (root)`. The Three.js module is loaded from jsDelivr, so play needs an internet connection.
 
 - **Dodge, collect, runner:** WASD or arrow keys. Press Space to jump in runner games.
 - **Reflex:** Aim with the pointer and click targets.
